@@ -79,6 +79,9 @@
     },
     "service": {
       "spec": false
-    } 
+    } ,
+    "serve": {
+      "port": 8080
+    }
   }
 }
