@@ -4,9 +4,11 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <app-header></app-header>
+    
     <section class="hero is-fullheight is-warning is-bold">
         <div class="hero-body">
             <div class="container">
+                <flash-messages></flash-messages>
                 <router-outlet></router-outlet>
             </div>
         </div>
@@ -16,5 +18,7 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor() { }
+
 }

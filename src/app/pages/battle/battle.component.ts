@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GifService } from "@app/core/services/gif.service";
+import { Gif } from "@app/models/gif.model";
+import { FlashMessagesService } from "angular2-flash-messages";
 
 @Component({
   selector: 'app-battle',
@@ -9,48 +11,58 @@ import { GifService } from "@app/core/services/gif.service";
     <div class="columns" *ngIf="battleGifs">
     
         <div class="column is-half" *ngFor="let gif of battleGifs">
-            <div class="gif-container">
-                <img [src]="gif.url">
-                <div class="caption">{{ gif.caption }}</div>
-            </div>
+            <app-gif
+                [url]="gif.url"
+                [caption]="gif.caption">
+            </app-gif>
+            <a class="button is-info" (click)="voteOnGif(gif.id)">Vote!</a>
         </div>
         
     </div>
   `,
   styles: [`
-    .gif-container {
-        position: relative;
-    }
-    .caption {
-        display: block;
-        position: absolute;
-        left: 20px;
-        right: 20px;
-        bottom: 30px;
-        text-align: center;
-        color: #fff;
-        font-size: 30px;
-        text-transform: uppercase;
-        line-height: 1;
-        word-break: break-all;
-        text-shadow: 1px 1px 3px #000;
-    }
-    img {
+    ::ng-deep img {
         width: 100%;
         height: 300px;
         border-radius: 3px;
     }
+    .button {
+        display: block;
+        width: 100%;
+    }
 `]
 })
 export class BattleComponent implements OnInit {
-  battleGifs: Array<any>;
+  battleGifs: Gif[];
 
-  constructor(private gifService: GifService) { }
+  constructor(
+      private gifService: GifService,
+      private flashService: FlashMessagesService
+  ) { }
 
   ngOnInit() {
+    this.getNewBattle();
+  }
 
+  getNewBattle() {
     this.gifService.getBattle()
         .subscribe(gifs => this.battleGifs = gifs);
+  }
+
+  voteOnGif(id) {
+    this.gifService.vote(id)
+        .subscribe(data => {
+
+          // load a new battle
+          this.getNewBattle();
+
+          // show a notification of success
+          this.flashService.show('Voted on Gif!', {
+            cssClass: 'notification is-success',
+            timeout: 5000
+          });
+
+        });
   }
 
 }

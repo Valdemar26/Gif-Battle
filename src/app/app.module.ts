@@ -7,6 +7,7 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { AppComponent } from '@app/app.component';
 import { CoreModule } from "@app/core/core.module";
 import { PagesModule } from "@app/pages/pages.module";
+import { FlashMessagesModule, FlashMessagesService } from 'angular2-flash-messages';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,12 @@ import { PagesModule } from "@app/pages/pages.module";
     FormsModule,
     HttpClientModule,
     CoreModule,
-    PagesModule
+    PagesModule,
+    FlashMessagesModule
   ],
-  providers: [],
+  providers: [
+      FlashMessagesModule, FlashMessagesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

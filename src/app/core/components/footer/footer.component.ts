@@ -13,7 +13,11 @@ import { Component, OnInit } from '@angular/core';
       </div>
     </footer>
   `,
-  styles: []
+  styles: [`
+    .footer {
+        background-color: #38a7f0;
+    }
+`]
 })
 export class FooterComponent implements OnInit {
 
