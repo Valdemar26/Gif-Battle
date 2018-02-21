@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 app.get('/random', (req, res) => {
 
     // get a gif from giphy
-    const apiKey = 'ztAX0mddDx2rHuWPa0zOlU9mWCRovyxt';
+const apiKey = 'YOUR_API_KEY_HERE';
 const url = `https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&filter=G`;
 request(url, (error, response, body) => {
     body = JSON.parse(body);
